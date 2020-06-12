@@ -1,20 +1,26 @@
-# disable_screenshots
+import 'dart:math';
 
-在Flutter开发中，有时我们需要对App的内容进行管控，避免敏感信息暴露，所以开发了这个插件。此插件提供三个禁用截屏的相关功能，分别是：`截屏监控行为`、`全局添加水印`、`禁用截屏（仅支持Android）`。
+import 'package:flutter/material.dart';
+import 'dart:async';
 
-## Getting Started
+import 'package:disable_screenshots/disable_screenshots.dart';
 
-### Add dependency
-```
-dependencies:
-  disable_screenshots: 0.0.1 #latest version
-```
+void main() {
+  runApp(MyApp());
+}
 
-### 功能演示
-![demo_gif](demo.gif)
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
 
-### 使用样例
-```dart
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(home: RootApp());
+  }
+}
+
 class RootApp extends StatefulWidget {
   @override
   _RootAppState createState() => _RootAppState();
@@ -107,6 +113,58 @@ class _RootAppState extends State<RootApp> {
     }
   }
 }
-```
 
+class Watarmark extends StatelessWidget {
+  final int rowCount;
+  final int columnCount;
+  final String text;
 
+  const Watarmark(
+      {Key key,
+      @required this.rowCount,
+      @required this.columnCount,
+      @required this.text})
+      : super(key: key);
+
+  @override
+  Widget build(BuildContext context) {
+    return IgnorePointer(
+      child: Container(
+          child: Column(
+        children: creatColumnWidgets(),
+      )),
+    );
+  }
+
+  List<Widget> creatRowWdiges() {
+    List<Widget> list = [];
+    for (var i = 0; i < rowCount; i++) {
+      final widget = Expanded(
+          child: Center(
+              child: Transform.rotate(
+        angle: pi / 10,
+        child: Text(
+          text,
+          style: TextStyle(
+              color: Color(0x08000000),
+              fontSize: 18,
+              decoration: TextDecoration.none),
+        ),
+      )));
+      list.add(widget);
+    }
+    return list;
+  }
+
+  List<Widget> creatColumnWidgets() {
+    List<Widget> list = [];
+    for (var i = 0; i < columnCount; i++) {
+      final widget = Expanded(
+          child: Row(
+        children: creatRowWdiges(),
+      ));
+      list.add(widget);
+    }
+    return list;
+  }
+}
