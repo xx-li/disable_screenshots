@@ -109,4 +109,5 @@ class _RootAppState extends State<RootApp> {
 }
 ```
 
-
+### 已知问题
+1. 在老的flutter项目中，在iOS平台运行可能出现编译问题无法运行。这个是由于老的flutter项目里面没有使用到swift，所以没有briging文件，但是插件使用了swift，所以会编译失败，这种情况直接使用xcode在iOS项目中创建一个swift文件，会自动生成briding文件。
