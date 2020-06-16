@@ -6,16 +6,22 @@ public class SwiftDisableScreenshotsPlugin: NSObject {
 
   public static func register(with registrar: FlutterPluginRegistrar) {
     let instance = SwiftDisableScreenshotsPlugin()
-    let methodChannel = FlutterMethodChannel(name: "com.devlxx.DisableScreenshots/disableScreenshots", binaryMessenger: registrar.messenger())
+    let methodChannel = FlutterMethodChannel(
+        name: "com.devlxx.DisableScreenshots/disableScreenshots", 
+        binaryMessenger: registrar.messenger()
+    )
     registrar.addMethodCallDelegate(instance, channel: methodChannel)
     
-    let channel = FlutterEventChannel(name: "com.devlxx.DisableScreenshots/observer", binaryMessenger: registrar.messenger())
+    let channel = FlutterEventChannel(
+        name: "com.devlxx.DisableScreenshots/observer", 
+        binaryMessenger: registrar.messenger()
+    )
     channel.setStreamHandler(instance)
   }
     
-    @objc func callScreenshots() {
-        eventSink!("")
-    }
+  @objc func callScreenshots() {
+    eventSink!("")
+  }
 }
 
 extension SwiftDisableScreenshotsPlugin: FlutterPlugin {

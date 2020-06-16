@@ -8,8 +8,10 @@ class DisableScreenshots {
   static DisableScreenshots _instance;
   factory DisableScreenshots() {
     if (_instance == null) {
-      final MethodChannel methodChannel = const MethodChannel("com.devlxx.DisableScreenshots/disableScreenshots");
-      final EventChannel eventChannel = const EventChannel('com.devlxx.DisableScreenshots/observer');
+      final MethodChannel methodChannel = const MethodChannel(
+          "com.devlxx.DisableScreenshots/disableScreenshots");
+      final EventChannel eventChannel =
+          const EventChannel('com.devlxx.DisableScreenshots/observer');
       _instance = DisableScreenshots.private(methodChannel, eventChannel);
     }
     return _instance;
@@ -22,40 +24,33 @@ class DisableScreenshots {
 
   OverlayEntry _overlayEntry;
 
-  void addWatermark(
-    BuildContext context, 
-    String watermark, 
-    {int rowCount = 3, int columnCount = 10, TextStyle textStyle}) async 
-  {
+  void addWatermark(BuildContext context, String watermark,
+      {int rowCount = 3, int columnCount = 10, TextStyle textStyle}) async {
     if (_overlayEntry != null) {
       _overlayEntry.remove();
     }
     OverlayState overlayState = Overlay.of(context);
     _overlayEntry = OverlayEntry(
-      builder: (context) => DisableScreenshotsWatarmark(
-        rowCount: rowCount, 
-        columnCount: columnCount, 
-        text: watermark,
-        textStyle: textStyle ?? const TextStyle(
-                color: Color(0x08000000), 
-                fontSize: 18,
-                decoration: TextDecoration.none),
-      )
-    );
+        builder: (context) => DisableScreenshotsWatarmark(
+              rowCount: rowCount,
+              columnCount: columnCount,
+              text: watermark,
+              textStyle: textStyle ??
+                  const TextStyle(
+                      color: Color(0x08000000),
+                      fontSize: 18,
+                      decoration: TextDecoration.none),
+            ));
     overlayState.insert(_overlayEntry);
     // return await _methodChannel.invokeMethod<void>("addWatermark", ['我是水印']);
   }
 
-  void addCustomWatermark(
-    BuildContext context, 
-    Widget widget) {
+  void addCustomWatermark(BuildContext context, Widget widget) {
     if (_overlayEntry != null) {
       _overlayEntry.remove();
     }
     OverlayState overlayState = Overlay.of(context);
-    _overlayEntry = OverlayEntry(
-      builder: (context) => widget
-    );
+    _overlayEntry = OverlayEntry(builder: (context) => widget);
     overlayState.insert(_overlayEntry);
   }
 
@@ -68,9 +63,7 @@ class DisableScreenshots {
 
   Stream<void> get onScreenShots {
     if (_onScreenShots == null) {
-      _onScreenShots = _eventChannel.receiveBroadcastStream().map((event){
-        print("监测到了截屏操作");
-      });
+      _onScreenShots = _eventChannel.receiveBroadcastStream();
     }
     return _onScreenShots;
   }
@@ -78,26 +71,25 @@ class DisableScreenshots {
   /// 只支持安卓
   Future<void> disableScreenshots(bool disable) async {
     if (Platform.isAndroid) {
-      return await _methodChannel.invokeMethod("disableScreenshots", {"disable": disable});  
+      return await _methodChannel
+          .invokeMethod("disableScreenshots", {"disable": disable});
     } else {
       print('仅Android平台支持禁用屏幕截图');
     }
   }
 }
 
-
 class DisableScreenshotsWatarmark extends StatelessWidget {
-
   final int rowCount;
   final int columnCount;
   final String text;
   final TextStyle textStyle;
 
   const DisableScreenshotsWatarmark({
-    Key key, 
-    @required this.rowCount, 
-    @required this.columnCount, 
-    @required this.text, 
+    Key key,
+    @required this.rowCount,
+    @required this.columnCount,
+    @required this.text,
     @required this.textStyle,
   }) : super(key: key);
 
@@ -105,10 +97,9 @@ class DisableScreenshotsWatarmark extends StatelessWidget {
   Widget build(BuildContext context) {
     return IgnorePointer(
       child: Container(
-        child: Column(
-          children: creatColumnWidgets(),
-        )
-      ),
+          child: Column(
+        children: creatColumnWidgets(),
+      )),
     );
   }
 
@@ -116,16 +107,9 @@ class DisableScreenshotsWatarmark extends StatelessWidget {
     List<Widget> list = [];
     for (var i = 0; i < rowCount; i++) {
       final widget = Expanded(
-        child: Center(
-          child: Transform.rotate(
-            angle: pi / 10,
-            child: Text(
-              text, 
-              style: textStyle
-            )
-          )
-        )
-      );
+          child: Center(
+              child: Transform.rotate(
+                  angle: pi / 10, child: Text(text, style: textStyle))));
       list.add(widget);
     }
     return list;
@@ -135,13 +119,11 @@ class DisableScreenshotsWatarmark extends StatelessWidget {
     List<Widget> list = [];
     for (var i = 0; i < columnCount; i++) {
       final widget = Expanded(
-        child: Row(
-          children: creatRowWdiges(),
+          child: Row(
+        children: creatRowWdiges(),
       ));
       list.add(widget);
     }
     return list;
   }
-
-
 }

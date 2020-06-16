@@ -89,15 +89,18 @@ public class DisableScreenshotsPlugin: FlutterPlugin, MethodCallHandler, EventCh
   override fun onListen(arguments: Any?, events: EventChannel.EventSink?) {
     println("开始监听")
     eventSink = events
+    // ScreenShotListenManager为一个实现了监听截屏功能的Manager
     screenShotListenManager = ScreenShotListenManager.newInstance(applicationContext)
     screenShotListenManager.setListener { imagePath ->
-      println("监听到截屏，截屏地址是：$imagePath")
-      eventSink?.success("")
+      println("监听到截屏，截屏图片地址是：$imagePath")
+      // 发送事件给Flutter端，告知监听到了截屏行为。
+      eventSink?.success("监听到截屏行为")
     }
     screenShotListenManager.startListen()
   }
 
   override fun onCancel(arguments: Any?) {
+    screenShotListenManager.stopListen()
     eventSink = null
   }
 

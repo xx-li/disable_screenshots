@@ -1,6 +1,6 @@
 name: disable_screenshots
-description: 提供三个禁用截屏的相关功能。分别是：截屏监控、全局添加水印、禁用截屏（仅支持Android）
-version: 0.0.1
+description: "Provides three related functions that disable screenshots. These are: screenshot monitoring, adding a watermark globally, disabling screenshots (only supports Android). 提供三个禁用截屏的相关功能。分别是：截屏监控、全局添加水印、禁用截屏（仅支持Android）"
+version: 0.1.0
 homepage: https://github.com/xx-li/disable_screenshots
 
 environment:
