@@ -112,6 +112,7 @@ class _RootAppState extends State<RootApp> {
 
 ### 已知问题
 1. 在老的flutter项目中，在iOS平台运行可能出现编译问题无法运行。这个是由于老的flutter项目里面没有使用到swift，所以没有briging文件，但是插件使用了swift，所以会编译失败，这种情况直接使用xcode在iOS项目中创建一个swift文件，会自动生成briding文件。
+2. 在某些安卓设备上(华为P30、Mi 10、三星Note10、OPPO reno3 Pro等)，存在不能捕获截屏事件的问题，如果大家有解决方案，请提交`pull request`，谢谢！
 
 ### 其它
 此Plugin的创建流程，可以参考博文[如何创建一个Flutter Plugin](https://blog.devlxx.com/2020/06/15/%E5%A6%82%E4%BD%95%E5%88%9B%E5%BB%BA%E4%B8%80%E4%B8%AAFlutter-Plugin/)

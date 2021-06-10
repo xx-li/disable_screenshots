@@ -30,7 +30,7 @@ class _RootAppState extends State<RootApp> {
   // 初始化插件
   DisableScreenshots _plugin = DisableScreenshots();
   // 监控截屏行为的stream
-  StreamSubscription<void> _screenshotsSubscription;
+  late StreamSubscription<void> _screenshotsSubscription;
   int _screenshotsCount = 0;
   bool _disableScreenshots = false;
 
@@ -52,6 +52,7 @@ class _RootAppState extends State<RootApp> {
       ),
       body: Column(
         children: <Widget>[
+          SizedBox(height:100),
           Center(
             child: Text("监控到截屏次数：$_screenshotsCount"),
           ),
@@ -87,7 +88,9 @@ class _RootAppState extends State<RootApp> {
                   _disableScreenshots = flag;
                 });
               },
-              child: Text(_disableScreenshots ? "允许截屏（仅android适用）" : "禁用截屏（仅android适用)")),
+              child: Text(_disableScreenshots
+                  ? "允许截屏（仅android适用）"
+                  : "禁用截屏（仅android适用)")),
           RaisedButton(
               onPressed: () {
                 Navigator.of(context).push(MaterialPageRoute(
@@ -120,10 +123,10 @@ class Watarmark extends StatelessWidget {
   final String text;
 
   const Watarmark(
-      {Key key,
-      @required this.rowCount,
-      @required this.columnCount,
-      @required this.text})
+      {Key? key,
+      required this.rowCount,
+      required this.columnCount,
+      required this.text})
       : super(key: key);
 
   @override
