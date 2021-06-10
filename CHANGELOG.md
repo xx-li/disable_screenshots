@@ -6,3 +6,7 @@
 
 * 代码格式优化
 * 添加license
+
+## 0.2.0
+
+* support null safety

@@ -1,11 +1,12 @@
 name: disable_screenshots
 description: "Provides three related functions that disable screenshots. These are: screenshot monitoring, adding a watermark globally, disabling screenshots (only supports Android). 提供三个禁用截屏的相关功能。分别是：截屏监控、全局添加水印、禁用截屏（仅支持Android）"
 version: 0.2.0
-homepage: https://github.com/xx-li/disable_screenshots
+repository: https://github.com/xx-li/disable_screenshots
+homepage: https://blog.devlxx.com
 
 environment:
   sdk: ">=2.12.0 <3.0.0"
-  flutter: ">=1.10.0"
+  flutter: ">=1.12.0"
 
 dependencies:
   flutter:
